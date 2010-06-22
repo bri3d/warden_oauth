@@ -68,7 +68,7 @@ module Warden
       #   manager.oauth(:twitter) { |twitter| ... } # will register a strategy :twitter_oauth
       #
       def register_oauth_strategy_class(keyword, strategy_class)
-        keyword_name = "%s_oauth" % keyword.to_s
+        keyword_name = "%s_oauth2" % keyword.to_s
         if Warden::Strategies[keyword_name.to_sym].nil?
           Warden::Strategies.add(keyword_name.to_sym, strategy_class) 
         end
