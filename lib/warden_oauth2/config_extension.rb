@@ -22,7 +22,7 @@ module Warden
       #     end
       #   end
       #
-      def oauth(service, &block)
+      def oauth2(service, &block)
         config = Warden::OAuth2::Config.new
         if block_given?
           if block.arity == 1 
