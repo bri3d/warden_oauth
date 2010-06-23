@@ -109,7 +109,7 @@ module Warden
 
       def user_id_from_token
         json = access_token.get("/me")
-        JSON.parse(json)["id"]
+        JSON.parse(json)
       end
 
       def delete_oauth_token_from_session
@@ -160,7 +160,7 @@ module Warden
       end
 
       def service_param_name
-        '%s_oauth' % config.provider_name
+        '%s_oauth2' % config.provider_name
       end
 
       def config
