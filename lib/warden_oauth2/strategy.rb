@@ -88,7 +88,8 @@ module Warden
       end
 
       def client
-        @client ||= ::OAuth2::Client.new(config.client_id, config.client_secret, config.options)
+        ## Dup the options hash since OAuth2 gem scrubs some of them out
+        @client ||= ::OAuth2::Client.new(config.client_id, config.client_secret, Marshal::load(Marshal::dump(config.options)))
       end
 
       def access_token
