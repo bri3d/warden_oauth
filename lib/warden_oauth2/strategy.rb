@@ -100,7 +100,8 @@ module Warden
       end
 
       def self.client
-        @client ||= ::OAuth2::Client.new(config.client_id, config.client_secret, config.options)
+        ## Dup the options hash since OAuth2 gem scrubs some of them out
+        @client ||= ::OAuth2::Client.new(config.client_id, config.client_secret, Marshal::load(Marshal::dump(config.options)))
       end
 
       def session_oauth_token
@@ -110,6 +111,10 @@ module Warden
       def user_id_from_token
         json = access_token.get("/me")
         JSON.parse(json)
+        rescue ::OAuth2::HTTPError => e
+          delete_oauth_token_from_session
+          throw :warden
+          throw_error_with_oauth_info
       end
 
       def delete_oauth_token_from_session
