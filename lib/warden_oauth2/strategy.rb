@@ -111,7 +111,7 @@ module Warden
 
       def user_id_from_token
         json = access_token.get("/me")
-        JSON.parse(json)
+        {:user => JSON.parse(json), :token => access_token.token}
         rescue ::OAuth2::HTTPError => e
           delete_oauth_token_from_session
           throw :warden
